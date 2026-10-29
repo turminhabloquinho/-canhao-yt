@@ -123,6 +123,35 @@ def enviar(yt, caminho, titulo, desc, tags, miniatura=None):
     return vid
 
 
+ALVO_LONGO = 10 * 60  # vídeo diário com 10+ min: mais horas de exibição e, com 8+ min, anúncios no meio
+
+
+def montar_longo(ep, cal, pub):
+    """Música nova (2x) + músicas já publicadas, até passar de 10 min. Devolve o arquivo e os capítulos."""
+    base = os.path.join(RAIZ, "saida", f"ep{ep['id']:02d}")
+    nome = lambda e: e["titulo"].split("|")[0].strip()
+    anteriores = [e for e in cal if str(e["id"]) in pub and e.get("letra") and "compila" not in e["tema"]]
+    random.Random(ep["id"]).shuffle(anteriores)
+    ordem, cap, total = [], [], 0.0
+    for i, e in enumerate([ep, ep] + anteriores * 20):
+        f = os.path.join(RAIZ, "saida", f"ep{e['id']:02d}.mp4")
+        if not os.path.exists(f):
+            motor.render(e)
+        if i < 2 + len(anteriores):
+            cap.append((total, nome(e) + (" (de novo!)" if i == 1 else "")))
+        ordem.append(f); total += duracao(f)
+        if total >= ALVO_LONGO:
+            break
+    saida = base + "_longo.mp4"
+    open(base + ".txt", "w").write("".join(f"file '{f}'\n" for f in ordem))
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", base + ".txt",
+                    "-c", "copy", saida], check=True)
+    os.remove(base + ".txt")
+    capitulos = "\n".join(f"{int(t // 60)}:{int(t % 60):02d} {n}" for t, n in cap)
+    print(f"longo: {total / 60:.1f} min")
+    return saida, capitulos
+
+
 def publicar(qtd=1):
     yt = cliente()
     cal = json.load(open(motor.CAL, encoding="utf-8"))
@@ -142,7 +171,15 @@ def publicar(qtd=1):
             else:
                 motor.render(ep)
                 motor.render(ep, vertical=True, limite=6)
-        vid = enviar(yt, base + ".mp4", ep["titulo"], descricao(ep), ep["tags"], base + ".jpg")
+        if "compila" in ep["tema"]:
+            vid = enviar(yt, base + ".mp4", ep["titulo"], descricao(ep), ep["tags"], base + ".jpg")
+        else:
+            arquivo, capitulos = montar_longo(ep, cal, pub)
+            titulo = ep["titulo"].split("|")[0].strip() + " + Mais Músicas Infantis"
+            if len(titulo) + 24 <= 100:
+                titulo += " | Turminha do Bloquinho"
+            desc = descricao(ep).replace("\n\n🎵 LETRA:", f"\n\n🎶 NESTE VÍDEO:\n{capitulos}\n\n🎵 LETRA:", 1)
+            vid = enviar(yt, arquivo, titulo, desc, ep["tags"], base + ".jpg")
         if ep["playlist"] in lista_pl:
             yt.playlistItems().insert(part="snippet", body={"snippet": {
                 "playlistId": lista_pl[ep["playlist"]], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
