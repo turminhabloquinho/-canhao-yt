@@ -5,7 +5,7 @@
   python youtube_bot.py publicar 1    # publica o próximo episódio pendente (+ o Short dele)
   python youtube_bot.py status
 """
-import json, os, sys
+import datetime, json, os, random, subprocess, sys
 import motor
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -157,13 +157,73 @@ def publicar(qtd=1):
         print("nada pendente: adicione novos episódios em conteudo/calendario.json")
 
 
+TITULOS_COMP = [
+    "{m} Minutos de Músicas Infantis 🎶 Compilação | Turminha do Bloquinho",
+    "Músicas para Crianças {m} Min 🧱 Cores, Números e Animais | Turminha do Bloquinho",
+    "Compilação Infantil {m} Minutos 🎵 Cante e Aprenda com o Bloquinho",
+    "As Melhores Músicas Infantis 🌈 {m} Minutos | Turminha do Bloquinho",
+]
+
+
+def duracao(caminho):
+    return float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                                          "-of", "csv=p=0", caminho]).decode())
+
+
+def compilacao_semanal():
+    """Compilação nova (30 ou 60 min, alternando) com os episódios já publicados, em ordem sorteada."""
+    semana = datetime.date.today().isocalendar()
+    chave = f"comp-{semana[0]}-{semana[1]:02d}"
+    pub = json.load(open(PUBLICADOS)) if os.path.exists(PUBLICADOS) else {}
+    if chave in pub:
+        print("compilação desta semana já publicada"); return
+    cal = json.load(open(motor.CAL, encoding="utf-8"))
+    eps = [e for e in cal if str(e["id"]) in pub and e.get("letra") and "compila" not in e["tema"]]
+    if len(eps) < 6:
+        print(f"só {len(eps)} episódios publicados; compilação começa com 6 ou mais"); return
+    random.Random(semana[1]).shuffle(eps)
+    minutos = 60 if semana[1] % 2 else 30
+    ordem, total, cap = [], 0.0, []
+    while total < minutos * 60:
+        for e in eps:
+            f = os.path.join(RAIZ, "saida", f"ep{e['id']:02d}.mp4")
+            if not os.path.exists(f):
+                motor.render(e)
+            cap.append((total, e["titulo"].split("|")[0].strip()))
+            ordem.append(f); total += duracao(f)
+            if total >= minutos * 60:
+                break
+    base = os.path.join(RAIZ, "saida", chave)
+    open(base + ".txt", "w").write("".join(f"file '{f}'\n" for f in ordem))
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", base + ".txt",
+                    "-c", "copy", base + ".mp4"], check=True)
+    os.remove(base + ".txt")
+    nuvens = [(0.1, 0.15, 0.7), (0.5, 0.25, 1.0), (0.8, 0.18, 0.6), (0.3, 0.3, 1.2)]
+    motor.miniatura({"id": 0}, f"{minutos} Minutos Músicas", nuvens, base + ".jpg")
+    capitulos = "\n".join(f"{int(t // 60)}:{int(t % 60):02d} {n}" for t, n in cap[:len(eps)])
+    titulo = TITULOS_COMP[semana[1] % len(TITULOS_COMP)].format(m=minutos)
+    desc = (f"{titulo.split('|')[0].strip()}\n\n{minutos} minutos de músicas infantis educativas para bebês e crianças "
+            f"de 1 a 5 anos: cores, números, animais e bons hábitos com a Turminha do Bloquinho.\n\n"
+            f"🎵 MÚSICAS:\n{capitulos}\n\n🧱 Vídeo novo todos os dias!\n\n#musicainfantil #turminhadobloquinho #desenhoinfantil")
+    yt = cliente()
+    vid = enviar(yt, base + ".mp4", titulo, desc[:4900], ["musica infantil", "compilacao infantil",
+                 "turminha do bloquinho", "musicas para criancas"], base + ".jpg")
+    pl = playlists(yt).get("⏱️ Compilações - 30 Minutos+")
+    if pl:
+        yt.playlistItems().insert(part="snippet", body={"snippet": {
+            "playlistId": pl, "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
+    pub[chave] = {"video": vid}
+    json.dump(pub, open(PUBLICADOS, "w"), indent=2)
+
+
 def status():
     cal = json.load(open(motor.CAL, encoding="utf-8"))
     pub = json.load(open(PUBLICADOS)) if os.path.exists(PUBLICADOS) else {}
-    print(f"episódios: {len(cal)} | publicados: {len(pub)} | restam: {len(cal) - len(pub)} dias de conteúdo")
+    n = sum(1 for k in pub if k.isdigit())
+    print(f"episódios: {len(cal)} | publicados: {n} | restam: {len(cal) - n} dias de conteúdo | compilações semanais: {len(pub) - n}")
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
-    {"auth": auth, "configurar": configurar, "status": status,
+    {"auth": auth, "configurar": configurar, "status": status, "compilacao": compilacao_semanal,
      "publicar": lambda: publicar(int(sys.argv[2]) if len(sys.argv) > 2 else 1)}[cmd]()
