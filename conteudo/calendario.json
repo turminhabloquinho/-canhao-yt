@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "titulo": "Bloquinho das Cores 🎨 Música Infantil para Aprender as Cores | Turminha do Bloquinho",
+    "playlist": "🎨 Aprender as Cores com o Bloquinho",
+    "tema": "cores",
+    "letra": "Bloquinho vermelho, pula, pula, pula!\nBloquinho vermelho, gira e faz a curva!\nVermelho é o morango, vermelho é a maçã,\nVermelho é o Bloquinho que acorda de manhã!\n\nAmarelinha chega, brilha feito o sol,\nAmarelo é a banana, amarelo é o farol!\nAzulzinho voa, azul é o céu e o mar,\nVerdinho pula na grama, vamos todos cantar!\n\nVermelho, amarelo, azul e verdinho,\nEmpilha, empilha, que alto o castelinho!\nVermelho, amarelo, azul e verdinho,\nAprendi as cores com o meu Bloquinho!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "cores"
+    ],
+    "arquivo": "saida/ep01.mp4",
+    "miniatura": "saida/ep01.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 2,
+    "titulo": "Contando até 10 com os Bloquinhos 🔢 Música Infantil dos Números | Turminha do Bloquinho",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "numeros",
+    "letra": "Um bloquinho sozinho queria brincar,\nChamou mais um amigo: um, dois! Vamos contar!\nDois bloquinhos chamaram mais um pra cá,\nUm, dois, três! Que torre vai ficar!\n\nQuatro, cinco, a torre vai subir,\nSeis, sete, ninguém pode cair!\nOito, nove, segura, segura, segura!\nDez bloquinhos! Que torre de altura!\n\nE agora... BUM! A torre caiu!\nTodo mundo riu, todo mundo riu!\nVamos de novo? Contar outra vez:\nUm, dois, três, quatro, cinco, seis...",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "numeros"
+    ],
+    "arquivo": "saida/ep02.mp4",
+    "miniatura": "saida/ep02.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 3,
+    "titulo": "Família Bloquinho ✋ Papai Bloquinho, Onde Está? Música Infantil | Turminha do Bloquinho",
+    "playlist": "✋ Família dos Dedinhos",
+    "tema": "familia dedinhos",
+    "letra": "Papai Bloquinho, Papai Bloquinho, onde você está?\nAqui estou, aqui estou, vamos empilhar!\nMamãe Bloquinho, Mamãe Bloquinho, onde você está?\nAqui estou, aqui estou, vamos empilhar!\n\nIrmão Bloquinho, Irmão Bloquinho, onde você está?\nAqui estou, aqui estou, vamos empilhar!\nIrmã Bloquinho, Irmã Bloquinho, onde você está?\nAqui estou, aqui estou, vamos empilhar!\n\nBebê Bloquinho, Bebê Bloquinho, onde você está?\nAqui estou, aqui estou, em cima vou ficar!\nFamília Bloquinho, todos juntos, olha que lindo lugar:\nUma torre de família pra gente abraçar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "familia dedinhos"
+    ],
+    "arquivo": "saida/ep03.mp4",
+    "miniatura": "saida/ep03.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 4,
+    "titulo": "Na Fazenda do Bloquinho 🐮 Sons dos Animais para Crianças | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "animais fazenda",
+    "letra": "Na fazenda do Bloquinho tem uma vaquinha,\nEla faz muuu, muuu, lá na cerquinha!\nNa fazenda do Bloquinho tem um porquinho,\nEle faz oinc, oinc, rolando no caminho!\n\nNa fazenda do Bloquinho tem uma galinha,\nEla faz có, có, có, chocando a ovelhinha... ops!\nChocando o ovinho!\nNa fazenda do Bloquinho tem um cavalinho,\nEle faz iiirrí, correndo no moinho!\n\nMuuu, oinc, có, iiirrí!\nOs bichinhos da fazenda estão todos aqui!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "animais fazenda"
+    ],
+    "arquivo": "saida/ep04.mp4",
+    "miniatura": "saida/ep04.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 5,
+    "titulo": "Escova o Dentinho com o Bloquinho 🪥 Música Infantil de Bons Hábitos | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "escovar dentes",
+    "letra": "Escova, escova, escova o dentinho,\nPra cima e pra baixo, bem devagarinho!\nOs dentes da frente, os dentes de trás,\nBloquinho escova e sorri muito mais!\n\nUm pouquinho de pasta, do tamanho de um grão,\nÁgua na escova e lá vai a canção!\nBolinha, bolinha, faz espuminha,\nCospe a espuma e enxagua a boquinha!\n\nDentinho limpinho, que lindo sorriso!\nEscovar todo dia é muito preciso!\nDe manhã, de tarde e antes de deitar,\nEscova, escova, vamos cantar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "escovar dentes"
+    ],
+    "arquivo": "saida/ep05.mp4",
+    "miniatura": "saida/ep05.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 6,
+    "titulo": "Canção de Ninar do Bloquinho 🌙 Música para Bebê Dormir | Turminha do Bloquinho",
+    "playlist": "🌙 Hora de Dormir - Canções de Ninar",
+    "tema": "ninar",
+    "letra": "A lua já chegou, Bloquinho vai deitar,\nAs estrelinhas brilham pra te acompanhar.\nFecha os olhinhos, respira devagar,\nA noite é quentinha, é hora de sonhar.\n\nAmarelinha dorme, Azulzinho também,\nVerdinho dá boa-noite pra todo mundo e mais alguém.\nShhh, shhh, o mundo vai calar,\nBloquinho no cantinho começa a sonhar.\n\nDorme, dorme, neném, que a noite é de paz,\nAmanhã tem brincadeira e muito mais.\nDorme, dorme, neném, no colo do luar,\nA Turminha do Bloquinho vai te ninar.",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "ninar"
+    ],
+    "arquivo": "saida/ep06.mp4",
+    "miniatura": "saida/ep06.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 7,
+    "titulo": "As Formas do Bloquinho 🔺 Quadrado, Círculo e Triângulo | Música Infantil",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "formas",
+    "letra": "Bloquinho quadrado tem quatro ladinhos,\nUm, dois, três, quatro, todos iguaizinhos!\nBolinha redonda rola sem parar,\nRedonda, redonda, vem rolar!\n\nTriângulo tem pontinha, três lados pra contar,\nParece um telhado, parece um chapéu pra usar!\nRetângulo comprido parece uma porta,\nAbre e fecha, abre, que a Turminha volta!\n\nQuadrado, círculo, triângulo, retângulo,\nFormas por todo lado, em todo ângulo!\nOlha a sua casa, olha ao seu redor,\nAchar as formas é brincadeira da melhor!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "formas"
+    ],
+    "arquivo": "saida/ep07.mp4",
+    "miniatura": "saida/ep07.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 8,
+    "titulo": "Hora de Arrumar os Brinquedos 🧸 Música Infantil Turminha do Bloquinho | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "arrumar",
+    "letra": "Acabou a brincadeira, vamos arrumar,\nCada brinquedo no seu lugar!\nO carrinho na caixa, a bola no cesto,\nBloquinho ajuda, que menino esperto!\n\nGuarda, guarda, guarda, guarda,\nQuem ajuda ganha um abraço de presente!\nGuarda, guarda, guarda, guarda,\nQuarto arrumadinho deixa todo mundo contente!\n\nAs bonecas na prateleira, os livros na estante,\nOs bloquinhos empilhados, olha que elegante!\nTudo organizado, que bom de olhar,\nAmanhã de manhã vamos de novo brincar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "arrumar"
+    ],
+    "arquivo": "saida/ep08.mp4",
+    "miniatura": "saida/ep08.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 9,
+    "titulo": "Lava a Mãozinha 🧼 Música Infantil de Higiene com o Bloquinho | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "lavar maos",
+    "letra": "Lava, lava, lava a mão,\nCom água e sabão!\nEsfrega a palminha, esfrega o dedinho,\nEntre os dedos, bem direitinho!\n\nLava, lava, lava a mão,\nAntes de comer, que é a lição!\nDepois de brincar, depois do banheiro,\nBloquinho lava a mão primeiro!\n\nConta até vinte esfregando assim:\nUm, dois, três... até o fim!\nEnxagua, enxuga, que maravilha,\nMão limpinha é saúde pra família!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "lavar maos"
+    ],
+    "arquivo": "saida/ep09.mp4",
+    "miniatura": "saida/ep09.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 10,
+    "titulo": "Bichos da Floresta 🦁 Leão, Macaco e Elefante | Música Infantil | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "animais floresta",
+    "letra": "Abre a porta, Bloquinho, vem ver o que é,\nTem um bicho na floresta andando a pé!\nÉ o leão! Rooaar! É o rei da mata,\nCom a juba dourada, ele não se mata... de rir!\n\nAbre a porta, Bloquinho, quem vem lá?\nÉ o macaco! Uh uh ah ah! Pulando pra cá!\nAbre a porta, Bloquinho, que barulhão!\nÉ o elefante! Fuuum! Com a tromba no chão!\n\nLeão, macaco, elefante também,\nNa floresta do Bloquinho cabe todo mundo, neném!\nBate palminha, bate pezinho,\nVamos pra floresta com o Bloquinho!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "animais floresta"
+    ],
+    "arquivo": "saida/ep10.mp4",
+    "miniatura": "saida/ep10.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 29,
+    "titulo": "Compilação 30 Min 🎶 Melhores Músicas da Turminha do Bloquinho | Turminha do Bloquinho",
+    "playlist": "⏱️ Compilações - 30 Minutos+",
+    "tema": "compilacao",
+    "letra": null,
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "compilacao"
+    ],
+    "arquivo": "saida/ep29.mp4",
+    "miniatura": "saida/ep29.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 11,
+    "titulo": "Borboletinha com a Turminha do Bloquinho 🦋 Cantiga Infantil | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "cantiga dominio publico: borboletinha",
+    "letra": "Borboletinha está na cozinha,\nFazendo chocolate para a madrinha.\nPoti, poti, perna de pau,\nOlho de vidro e nariz de pica-pau, pau, pau!\nBloquinho viu a borboleta voar,\nAmarela, azul, vem pro jardim brincar!\nBate as asinhas, bate devagar,\nPousa na florzinha pra descansar!\nBorboletinha, vamos cantar,\nA Turminha do Bloquinho vai te acompanhar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "borboletinha"
+    ],
+    "arquivo": "saida/ep11.mp4",
+    "miniatura": "saida/ep11.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 12,
+    "titulo": "Ciranda Cirandinha 🎶 Cantiga de Roda com o Bloquinho | Turminha do Bloquinho",
+    "playlist": "🎨 Aprender as Cores com o Bloquinho",
+    "tema": "cantiga dominio publico: ciranda cirandinha",
+    "letra": "Ciranda, cirandinha, vamos todos cirandar,\nVamos dar a meia volta, volta e meia vamos dar.\nO anel que tu me destes era vidro e se quebrou,\nO amor que tu me tinhas era pouco e se acabou.\nBloquinho entra na roda, Amarelinha também,\nAzulzinho dá a mão, Verdinho já vem!\nGira, gira, gira a roda sem parar,\nToda a Turminha junta vamos cirandar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "ciranda cirandinha"
+    ],
+    "arquivo": "saida/ep12.mp4",
+    "miniatura": "saida/ep12.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 13,
+    "titulo": "O Sapo Não Lava o Pé 🐸 Versão Turminha do Bloquinho | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "cantiga dominio publico: o sapo nao lava o pe",
+    "letra": "O sapo não lava o pé,\nNão lava porque não quer.\nEle mora lá na lagoa,\nNão lava o pé porque não quer.\nMas o Bloquinho lava, lava o pé,\nCom água e sabão, sabe como é!\nPé limpinho, pé cheiroso,\nLavar o pé é tão gostoso!\nO sapo pula, pula pra lá,\nSerá que um dia ele vai lavar?",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "o sapo nao lava o pe"
+    ],
+    "arquivo": "saida/ep13.mp4",
+    "miniatura": "saida/ep13.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 14,
+    "titulo": "Pirulito que Bate Bate 🍭 Cantiga Infantil com o Bloquinho | Turminha do Bloquinho",
+    "playlist": "🎨 Aprender as Cores com o Bloquinho",
+    "tema": "cantiga dominio publico: pirulito que bate bate",
+    "letra": "Pirulito que bate bate,\nPirulito que já bateu.\nQuem gosta de mim é ela,\nQuem gosta dela sou eu.\nBate palminha, bate assim,\nBloquinho bate palma pra mim!\nBate uma, bate duas, bate três,\nAgora a Turminha bate outra vez!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "pirulito que bate bate"
+    ],
+    "arquivo": "saida/ep14.mp4",
+    "miniatura": "saida/ep14.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 15,
+    "titulo": "Marcha Soldado 🥁 Música Infantil Turminha do Bloquinho | Turminha do Bloquinho",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "cantiga dominio publico: marcha soldado",
+    "letra": "Marcha soldado, cabeça de papel,\nSe não marchar direito, vai preso pro quartel.\nBloquinho marcha, um, dois, um, dois,\nAmarelinha vem logo depois!\nLevanta o joelho, balança a mão,\nToca o tambor: tum, tum, tum no chão!\nAzulzinho, Verdinho, entram na fila,\nMarcha a Turminha pela vila!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "marcha soldado"
+    ],
+    "arquivo": "saida/ep15.mp4",
+    "miniatura": "saida/ep15.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 16,
+    "titulo": "Peixe Vivo 🐟 Cantiga Infantil com o Bloquinho | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "cantiga dominio publico: peixe vivo",
+    "letra": "Como pode o peixe vivo\nViver fora da água fria?\nComo poderei viver\nSem a sua companhia?\nPeixinho nada no rio azul,\nVai pro norte, vai pro sul!\nBloquinho olha da beirada,\nTchau, peixinho, boa nadada!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "peixe vivo"
+    ],
+    "arquivo": "saida/ep16.mp4",
+    "miniatura": "saida/ep16.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 17,
+    "titulo": "Cores das Frutas 🍎🍌 Aprender Cores e Frutas | Música Infantil | Turminha do Bloquinho",
+    "playlist": "🎨 Aprender as Cores com o Bloquinho",
+    "tema": "frutas e cores",
+    "letra": "A maçã é vermelha, vermelha como o Bloquinho,\nA banana é amarela, amarela feito a Amarelinha!\nA uva é roxinha, docinha de comer,\nA laranja é laranja, vamos todos aprender!\nO kiwi é verdinho, verdinho igual ao Verdinho,\nO mirtilo é azul, azul como o Azulzinho!\nFrutinhas coloridas, que delícia de lanchar,\nCada cor uma fruta, vamos todos provar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "frutas e cores"
+    ],
+    "arquivo": "saida/ep17.mp4",
+    "miniatura": "saida/ep17.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 18,
+    "titulo": "Os Dias da Semana com o Bloquinho 📅 Música Infantil | Turminha do Bloquinho",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "dias da semana",
+    "letra": "Segunda-feira o Bloquinho foi pra escola,\nTerça-feira jogou bola!\nQuarta-feira pintou com a Amarelinha,\nQuinta-feira dançou a ciranda cirandinha!\nSexta-feira foi passear com o Azulzinho,\nSábado plantou flores com o Verdinho!\nDomingo, domingo, dia de descansar,\nSete dias na semana, vamos de novo contar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "dias da semana"
+    ],
+    "arquivo": "saida/ep18.mp4",
+    "miniatura": "saida/ep18.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 19,
+    "titulo": "Hora do Banho do Bloquinho 🛁 Música Infantil | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "banho",
+    "letra": "Hora do banho, hora do banho,\nBloquinho entra na banheira de qualquer tamanho!\nEsfrega a cabeça, esfrega o pescoço,\nEsfrega a barriga, que banho gostoso!\nBolhas de sabão sobem pelo ar,\nPop, pop, pop, vamos estourar!\nPatinho de borracha faz quá, quá, quá,\nBloquinho cheiroso, pronto pra brincar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "banho"
+    ],
+    "arquivo": "saida/ep19.mp4",
+    "miniatura": "saida/ep19.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 20,
+    "titulo": "Cabeça, Ombro, Joelho e Pé com o Bloquinho 🙆 Música para Dançar | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "partes do corpo",
+    "letra": "Cabeça, ombro, joelho e pé, joelho e pé!\nCabeça, ombro, joelho e pé, joelho e pé!\nOlhos, orelhas, boca e nariz,\nBloquinho dança e fica feliz!\nMais rápido agora, vamos lá:\nCabeça, ombro, joelho e pé, joelho e pé!\nMais rápido ainda, ninguém vai errar:\nOlhos, orelhas, boca e nariz, que alegria, que alegria!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "partes do corpo"
+    ],
+    "arquivo": "saida/ep20.mp4",
+    "miniatura": "saida/ep20.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 21,
+    "titulo": "Os Veículos do Bloquinho 🚒 Carro, Ônibus e Caminhão de Bombeiro | Turminha do Bloquinho",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "veiculos",
+    "letra": "O carro faz bi-bi, andando na rua,\nO ônibus faz fom-fom, levando a turma sua!\nO caminhão de bombeiro faz ui-ui-ui-ui,\nApaga o fogo rápido e lá vai, lá foi!\nO trem faz piuí, correndo no trilho,\nO avião faz vuuum, voando com brilho!\nBloquinho dirige, Amarelinha buzina,\nTodo mundo no carro, vamos dar uma voltinha!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "veiculos"
+    ],
+    "arquivo": "saida/ep21.mp4",
+    "miniatura": "saida/ep21.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 22,
+    "titulo": "Bebê Bloquinho Está Dodói 🩹 Música Infantil | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "dodoi cuidado",
+    "letra": "Bebê Bloquinho caiu e fez dodói,\nChorou, chorou, ai, ai, como dói!\nMamãe Bloquinho chega pra cuidar,\nLava o machucado, vai ficar tudo bem, vai passar!\nUm curativo colorido, um beijinho no lugar,\nUm abraço bem quentinho pra choro acabar!\nBebê Bloquinho sorri outra vez,\nObrigado, mamãe, por tudo que você fez!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "dodoi cuidado"
+    ],
+    "arquivo": "saida/ep22.mp4",
+    "miniatura": "saida/ep22.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 23,
+    "titulo": "Animais do Mar 🐳 Baleia, Polvo e Peixinho | Música Infantil | Turminha do Bloquinho",
+    "playlist": "🐮 Animais da Fazenda e da Floresta",
+    "tema": "animais do mar",
+    "letra": "Lá no fundo do mar azul,\nMora a baleia grandona, uuuh!\nO polvo tem oito braços pra abraçar,\nUm, dois, três, quatro, cinco, seis, sete, oito, vamos contar!\nO peixinho colorido nada sem parar,\nA tartaruga devagar vem passear!\nO caranguejo anda de lado, de lado, de lado,\nAzulzinho mergulha, que mar animado!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "animais do mar"
+    ],
+    "arquivo": "saida/ep23.mp4",
+    "miniatura": "saida/ep23.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 24,
+    "titulo": "Arco-Íris do Bloquinho 🌈 Música das Cores para Bebês | Turminha do Bloquinho",
+    "playlist": "🎨 Aprender as Cores com o Bloquinho",
+    "tema": "arco-iris",
+    "letra": "Depois da chuva o sol voltou,\nE no céu um arco-íris brilhou!\nVermelho, laranja, amarelo também,\nVerde, azul, anil e violeta vêm!\nSete cores no céu para olhar,\nO Bloquinho e a Turminha vão contar!\nVermelho, laranja, amarelo, verde,\nAzul, anil, violeta, que lindo de ver!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "arco-iris"
+    ],
+    "arquivo": "saida/ep24.mp4",
+    "miniatura": "saida/ep24.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 25,
+    "titulo": "Brilha Brilha Estrelinha ⭐ Canção de Ninar com o Bloquinho | Turminha do Bloquinho",
+    "playlist": "🌙 Hora de Dormir - Canções de Ninar",
+    "tema": "cantiga dominio publico: brilha brilha estrelinha",
+    "letra": "Brilha, brilha, estrelinha,\nLá no céu tão pequenininha.\nQuero ver você brilhar,\nPro Bloquinho descansar.\nA lua veio dar boa-noite,\nO vento canta bem baixinho.\nBrilha, brilha, estrelinha,\nDorme agora, meu benzinho.",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "brilha brilha estrelinha"
+    ],
+    "arquivo": "saida/ep25.mp4",
+    "miniatura": "saida/ep25.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 30,
+    "titulo": "Compilação para Dormir 1 Hora 🌙 Canções de Ninar do Bloquinho | Turminha do Bloquinho",
+    "playlist": "⏱️ Compilações - 30 Minutos+",
+    "tema": "compilacao ninar",
+    "letra": null,
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "compilacao ninar"
+    ],
+    "arquivo": "saida/ep30.mp4",
+    "miniatura": "saida/ep30.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 26,
+    "titulo": "Família Dedinho dos Animais ✋🐶 Música Infantil | Turminha do Bloquinho",
+    "playlist": "✋ Família dos Dedinhos",
+    "tema": "familia dedinhos animais",
+    "letra": "Papai Cachorro, Papai Cachorro, onde você está?\nAu, au, aqui estou, vamos passear!\nMamãe Gatinha, Mamãe Gatinha, onde você está?\nMiau, miau, aqui estou, vamos brincar!\nIrmão Patinho, Irmão Patinho, onde você está?\nQuá, quá, aqui estou, vamos nadar!\nBebê Pintinho, Bebê Pintinho, onde você está?\nPiu, piu, aqui estou, vamos cantar!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "familia dedinhos animais"
+    ],
+    "arquivo": "saida/ep26.mp4",
+    "miniatura": "saida/ep26.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 27,
+    "titulo": "Opostos com o Bloquinho ⬆️⬇️ Grande e Pequeno, Alto e Baixo | Turminha do Bloquinho",
+    "playlist": "🔢 Números e Contagem",
+    "tema": "opostos",
+    "letra": "O Bloquinho é grande, o bebê é pequenino,\nGrande, pequeno, aprende, menino!\nO balão está no alto, a bola está embaixo,\nAlto, baixo, olha que eu acho!\nA porta está aberta, agora está fechada,\nAberta, fechada, que brincadeira animada!\nO leite está quente, o sorvete está gelado,\nQuente e frio, é o contrário, aprendi o recado!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "opostos"
+    ],
+    "arquivo": "saida/ep27.mp4",
+    "miniatura": "saida/ep27.jpg",
+    "status": "roteiro"
+  },
+  {
+    "id": 28,
+    "titulo": "Vamos Comer Legumes 🥕 Música Infantil de Alimentação | Turminha do Bloquinho",
+    "playlist": "🪥 Bons Hábitos",
+    "tema": "alimentacao saudavel",
+    "letra": "Cenoura, cenoura, faz bem pro olhinho,\nLaranjinha e crocante, Bloquinho come um pouquinho!\nBrócolis verdinho parece uma arvorinha,\nVerdinho come tudo e deixa a barriguinha fortinha!\nAbóbora, beterraba, chuchu e feijão,\nPrato colorido é saúde e diversão!\nExperimenta, experimenta, prova pra ver,\nLegume é gostoso, faz a gente crescer!",
+    "tags": [
+      "turminha do bloquinho",
+      "musica infantil",
+      "desenho infantil",
+      "alimentacao saudavel"
+    ],
+    "arquivo": "saida/ep28.mp4",
+    "miniatura": "saida/ep28.jpg",
+    "status": "roteiro"
+  }
+]

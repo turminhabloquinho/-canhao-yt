@@ -1,0 +1,23 @@
+{
+  "nome": "Turminha do Bloquinho",
+  "handle_sugerido": "@TurminhadoBloquinho",
+  "pais": "BR",
+  "idioma": "pt-BR",
+  "feito_para_criancas": true,
+  "descricao": "Bem-vindo à Turminha do Bloquinho! 🧱🎶\nMúsicas infantis animadas para bebês e crianças de 1 a 5 anos aprenderem brincando: cores, números, formas, animais e bons hábitos.\nO Bloquinho Vermelho, a Amarelinha, o Azulzinho e o Verdinho cantam canções originais e cantigas de roda do Brasil.\n\n🎵 Vídeo novo todos os dias\n👶 Conteúdo seguro e educativo, feito para os pequenos\n🔔 Inscreva-se e cante com a gente!\n\nMúsicas infantis | Canções para bebês | Desenho infantil educativo | Aprender cores e números",
+  "palavras_chave": [
+    "musica infantil", "musicas infantis", "desenho infantil", "cancao infantil",
+    "musica para bebe", "aprender cores", "aprender numeros", "cantigas de roda",
+    "turminha do bloquinho", "bloquinho", "video infantil educativo", "musica de criança",
+    "nursery rhymes portugues", "dedinho", "blocos de montar"
+  ],
+  "playlists": [
+    {"titulo": "🎨 Aprender as Cores com o Bloquinho", "descricao": "Músicas infantis para aprender as cores brincando com a Turminha do Bloquinho."},
+    {"titulo": "🔢 Números e Contagem", "descricao": "Canções para contar de 1 a 10 e aprender os números."},
+    {"titulo": "🐮 Animais da Fazenda e da Floresta", "descricao": "Músicas infantis dos animais: sons, nomes e muita diversão."},
+    {"titulo": "✋ Família dos Dedinhos", "descricao": "Versões da Família dos Dedinhos com a Turminha do Bloquinho."},
+    {"titulo": "🌙 Hora de Dormir - Canções de Ninar", "descricao": "Músicas calmas para bebês dormirem."},
+    {"titulo": "🪥 Bons Hábitos", "descricao": "Escovar os dentes, tomar banho, guardar os brinquedos: hábitos em forma de música."},
+    {"titulo": "⏱️ Compilações - 30 Minutos+", "descricao": "Compilações longas com as músicas favoritas da Turminha do Bloquinho."}
+  ]
+}

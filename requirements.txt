@@ -1,0 +1,4 @@
+numpy
+pillow
+google-api-python-client
+google-auth-oauthlib
