@@ -152,6 +152,39 @@ def montar_longo(ep, cal, pub):
     return saida, capitulos
 
 
+TRAD = os.path.join(RAIZ, "conteudo", "traducoes.json")
+DESC_LOC = {
+    "en": ("Sing along with the Little Block Gang! Educational nursery rhymes and kids songs for babies and "
+           "toddlers (ages 1 to 5): colors, numbers, animals and good habits. New video every day! 🧱🎶\n\n"
+           "#nurseryrhymes #kidssongs #toddlerlearning"),
+    "es": ("¡Canta con la pandilla del Bloquecito! Canciones infantiles educativas para bebés y niños de 1 a 5 años: "
+           "colores, números, animales y buenos hábitos. ¡Video nuevo todos los días! 🧱🎶\n\n"
+           "#cancionesinfantiles #musicaparaniños #aprendiendo"),
+}
+SUFIXO_LONGO = {"en": " + More Nursery Rhymes", "es": " + Más Canciones Infantiles"}
+
+
+def localizar(yt, vid, ep_id, tipo="longo"):
+    """Título e descrição em inglês e espanhol: o YouTube mostra a versão no idioma de cada espectador."""
+    trad = json.load(open(TRAD, encoding="utf-8")).get(str(ep_id))
+    if not trad:
+        return
+    loc = {}
+    for i, lang in enumerate(("en", "es")):
+        t = trad[i]
+        if tipo == "short":
+            t += " #shorts"
+        elif tipo == "longo" and len(t) + len(SUFIXO_LONGO[lang]) <= 100:
+            t += SUFIXO_LONGO[lang]
+        loc[lang] = {"title": t[:100], "description": t + "\n\n" + DESC_LOC[lang]}
+    v = yt.videos().list(part="snippet", id=vid).execute()["items"][0]
+    sn = v["snippet"]
+    sn.setdefault("defaultLanguage", "pt-BR")
+    yt.videos().update(part="snippet,localizations", body={"id": vid, "snippet": {
+        "title": sn["title"], "description": sn["description"], "categoryId": sn["categoryId"],
+        "tags": sn.get("tags", []), "defaultLanguage": sn["defaultLanguage"]}, "localizations": loc}).execute()
+
+
 def publicar(qtd=1):
     yt = cliente()
     cal = json.load(open(motor.CAL, encoding="utf-8"))
@@ -183,10 +216,12 @@ def publicar(qtd=1):
         if ep["playlist"] in lista_pl:
             yt.playlistItems().insert(part="snippet", body={"snippet": {
                 "playlistId": lista_pl[ep["playlist"]], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
+        localizar(yt, vid, ep["id"], "simples" if "compila" in ep["tema"] else "longo")
         registro = {"video": vid}
         if os.path.exists(base + "_short.mp4"):
             titulo_s = ep["titulo"].split("|")[0].strip() + " #shorts"
             registro["short"] = enviar(yt, base + "_short.mp4", titulo_s, descricao(ep, True), ep["tags"])
+            localizar(yt, registro["short"], ep["id"], "short")
         pub[chave] = registro
         json.dump(pub, open(PUBLICADOS, "w"), indent=2)
         feitos += 1
