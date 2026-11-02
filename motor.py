@@ -164,6 +164,86 @@ def destaque(linha, idx):
             return i
     return idx % 4
 
+# ------------------------------------------------------------- objetos ----
+# O que o verso fala aparece na tela: emoji colorido (fonte Noto, licença OFL) ou forma desenhada.
+EMOJI_FONTE = "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf"
+OBJETOS = [
+    (r"quadrad", "forma:quadrado"), (r"c[ií]rculo|bolinha|redond", "forma:circulo"),
+    (r"tri[aâ]ngulo", "forma:triangulo"), (r"ret[aâ]ngulo", "forma:retangulo"),
+    (r"vermelh", "🔴"), (r"amarel", "🟡"), (r"azul", "🔵"), (r"verde|verdinho", "🟢"), (r"roxo|violeta", "🟣"),
+    (r"morango", "🍓"), (r"maçã", "🍎"), (r"banana", "🍌"), (r"uva", "🍇"), (r"laranja", "🍊"),
+    (r"kiwi", "🥝"), (r"mirtilo", "🫐"), (r"cenoura", "🥕"), (r"br[óo]colis", "🥦"), (r"ab[óo]bora", "🎃"),
+    (r"feij[ãa]o", "🫘"), (r"leite", "🥛"), (r"sorvete", "🍦"), (r"chocolate", "🍫"), (r"pirulito", "🍭"),
+    (r"sol\b", "☀️"), (r"lua", "🌙"), (r"estrel", "⭐"), (r"chuva", "🌧️"), (r"arco-[ií]ris", "🌈"),
+    (r"mar\b|fundo do mar", "🌊"), (r"grama|plantou|flor", "🌸"), (r"castel", "🏰"), (r"farol", "🚦"),
+    (r"vaca|vaquinha|muuu", "🐮"), (r"porquinho|porco|oinc", "🐷"), (r"galinha|có, có", "🐔"),
+    (r"ovinho|ovo\b", "🥚"), (r"cavalinho|cavalo", "🐴"), (r"le[ãa]o", "🦁"), (r"macaco", "🐒"),
+    (r"elefante", "🐘"), (r"borboleta", "🦋"), (r"sapo", "🐸"), (r"peix", "🐟"), (r"baleia", "🐳"),
+    (r"polvo", "🐙"), (r"tartaruga", "🐢"), (r"caranguejo", "🦀"), (r"cachorr|au, au", "🐶"),
+    (r"gat(a|o|inh)|miau", "🐱"), (r"patinho|pato|quá", "🦆"), (r"pintinho|piu", "🐥"),
+    (r"escova", "🪥"), (r"dent", "🦷"), (r"sab[ãa]o|espuma", "🧼"), (r"bolhas?", "🫧"), (r"banh", "🛁"),
+    (r"m[ãa]o\b|m[ãa]ozinha|m[ãa]os\b|palminha|palma", "👏"), (r"\bpé\b|pezinho", "🦶"),
+    (r"cabeça", "🙆"), (r"olhos|olhinhos", "👀"), (r"orelhas", "👂"), (r"nariz", "👃"), (r"joelho", "🦵"),
+    (r"carrinho|carro\b|bi-bi", "🚗"), (r"[ôo]nibus", "🚌"), (r"bombeiro", "🚒"), (r"caminh[ãa]o", "🚚"),
+    (r"trem", "🚂"), (r"avi[ãa]o", "✈️"), (r"\bbola\b", "⚽"), (r"bonecas?", "🪆"), (r"livros?", "📚"),
+    (r"brinquedo", "🧸"), (r"caixa", "📦"), (r"tambor", "🥁"), (r"soldad|marcha", "💂"), (r"porta", "🚪"),
+    (r"casa|telhado", "🏠"), (r"chap[ée]u", "🎩"), (r"deitar|dormir|dorme|ninar|sonhar", "😴"),
+    (r"cora[çc][ãa]o", "❤️"), (r"curativo", "🩹"), (r"dod[óo]i|caiu", "🤕"), (r"abra[çc]o", "🤗"),
+    (r"beij", "😘"), (r"bal[ãa]o", "🎈"), (r"escola", "🏫"), (r"chocolate", "🍫"), (r"cozinha", "🍳"),
+    (r"[áa]gua|nada|nadar|mergulh", "💧"), (r"formas\b", "forma:triangulo"), (r"riu|rir|sorri", "😄"),
+    (r"semana|segunda|ter[çc]a|quarta|quinta|sexta|s[áa]bado|domingo", "📅"),
+]
+NUMEROS = {"um": "1️⃣", "dois": "2️⃣", "três": "3️⃣", "quatro": "4️⃣", "cinco": "5️⃣", "seis": "6️⃣",
+           "sete": "7️⃣", "oito": "8️⃣", "nove": "9️⃣", "dez": "🔟"}
+_cache_emoji = {}
+
+
+def objetos(linha):
+    """Até 3 objetos citados no verso, na ordem em que aparecem."""
+    l = linha.lower()
+    achados = []
+    for padrao, obj in OBJETOS:
+        m = re.search(r"\b(?:" + padrao + ")", l)  # início de palavra: "uva" não casa com "chuva"
+        if m and obj not in [o for _, o in achados]:
+            achados.append((m.start(), obj))
+    nums, vistos = [], set()
+    for m in re.finditer(r"\b(" + "|".join(NUMEROS) + r")\b", l):
+        if m.group(1) not in vistos:
+            vistos.add(m.group(1)); nums.append((m.start(), NUMEROS[m.group(1)]))
+    contando = len(nums) >= 2 or (nums and nums[0][0] == 0 and l.split()[0] != "um")
+    if contando:  # "um, dois, três" ou verso que começa com número ("Dez bloquinhos")
+        achados += nums
+    return [o for _, o in sorted(achados)][:3]
+
+
+def emoji(car, px):
+    chave = (car, px)
+    if chave not in _cache_emoji:
+        fnt = ImageFont.truetype(EMOJI_FONTE, 109)
+        tela = Image.new("RGBA", (160, 160), (0, 0, 0, 0))
+        ImageDraw.Draw(tela).text((80, 80), car, font=fnt, embedded_color=True, anchor="mm")
+        caixa = tela.getbbox() or (0, 0, 160, 160)
+        _cache_emoji[chave] = tela.crop(caixa).resize((px, px), Image.LANCZOS)
+    return _cache_emoji[chave]
+
+
+def desenhar_objeto(img, obj, cx, cy, px, cor):
+    d = ImageDraw.Draw(img)
+    r = px / 2
+    contorno = dict(outline=(40, 40, 60), width=max(4, px // 30))
+    if obj == "forma:quadrado":
+        d.rounded_rectangle([cx - r * 0.8, cy - r * 0.8, cx + r * 0.8, cy + r * 0.8], radius=8, fill=(230, 57, 70), **contorno)
+    elif obj == "forma:circulo":
+        d.ellipse([cx - r * 0.85, cy - r * 0.85, cx + r * 0.85, cy + r * 0.85], fill=(255, 196, 0), **contorno)
+    elif obj == "forma:triangulo":
+        d.polygon([(cx, cy - r * 0.9), (cx - r * 0.9, cy + r * 0.75), (cx + r * 0.9, cy + r * 0.75)], fill=(40, 120, 230), **contorno)
+    elif obj == "forma:retangulo":
+        d.rounded_rectangle([cx - r, cy - r * 0.55, cx + r, cy + r * 0.55], radius=8, fill=(170, 90, 220), **contorno)
+    else:
+        e = emoji(obj, px)
+        img.paste(e, (int(cx - px / 2), int(cy - px / 2)), e)
+
+
 def quadro(W, H, t, linhas, dur, titulo, nuvens):
     img = Image.new("RGB", (W, H))
     d = ImageDraw.Draw(img)
@@ -194,6 +274,17 @@ def quadro(W, H, t, linhas, dur, titulo, nuvens):
         pulo = abs(math.sin(math.pi * fase)) * lado * (0.55 if i == ativo else 0.08)
         piscando = ((t + i * 0.7) % 3.3) < 0.12
         personagem(d, cx, chao + lado * 0.15, lado * (1.15 if i == ativo else 1.0), cor, pulo, piscando, i == ativo)
+
+    if em_letra:  # objetos do verso, na grama em frente à turma, pulando no ritmo
+        objs = objetos(linhas[i_linha])
+        px = int(s * (0.2 if W > H else 0.28))
+        base_y = chao + (H - chao) * (0.5 if W > H else 0.35)
+        for k, obj in enumerate(objs):
+            cx = W * (k + 1) / (len(objs) + 1)
+            entrada = min(1.0, ((t - ini) % (LINHA_BEATS * BEAT)) / 0.25)  # surge rápido no início do verso
+            pulo = abs(math.sin(math.pi * ((b + k * 0.33) % 1))) * px * 0.12
+            desenhar_objeto(img, obj, cx, base_y - pulo, max(8, int(px * entrada)), PERSONAGENS[ativo][1])
+        d = ImageDraw.Draw(img)
 
     # texto: título na intro, letra karaokê no meio, chamada no final
     caixa_y = H * (0.05 if W > H else 0.1)
