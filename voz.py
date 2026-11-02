@@ -44,25 +44,52 @@ def _ler(caminho, sr):
     return np.frombuffer(pcm, dtype=np.int16).astype(float) / 32767
 
 
-def _segmentos(som, sr, n):
-    """Divide a narração da música inteira em n versos, cortando nas n-1 maiores pausas."""
+def _segmentos(som, sr, linhas):
+    """Divide a narração em um trecho por verso. Cada corte cai na pausa mais próxima de onde o verso
+    deveria terminar, estimado pelo número de letras de cada verso (pausas longas têm preferência)."""
+    n = len(linhas)
     janela = int(0.02 * sr)
     energia = np.sqrt(np.convolve(som ** 2, np.ones(janela) / janela, mode="same"))
+    falando = np.where(energia >= 0.02)[0]
+    if len(falando) == 0:
+        return None
+    ini, fim = falando[0], falando[-1]
     calado = energia < 0.02
-    pausas, k = [], 0
-    while k < len(calado):
+    pausas, k = [], ini
+    while k < fim:
         if calado[k]:
             j = k
-            while j < len(calado) and calado[j]:
+            while j < fim and calado[j]:
                 j += 1
-            if k > 0 and j < len(calado):
-                pausas.append((j - k, (k + j) // 2))
+            if j - k >= int(0.08 * sr):
+                pausas.append(((k + j) // 2, (j - k) / sr))
             k = j
         else:
             k += 1
-    cortes = sorted(c for _, c in sorted(pausas, reverse=True)[: n - 1])
-    if len(cortes) < n - 1:
+    letras = np.cumsum([len(l) for l in linhas])
+    alvos = [ini + (fim - ini) * letras[v] / letras[-1] for v in range(n - 1)]
+    m = len(pausas)
+    if m < n - 1:
         return None
+    # programação dinâmica: n-1 cortes em ordem, valorizando pausas longas perto do ponto esperado
+    nota = lambda v, q: 4 * pausas[q][1] - abs(pausas[q][0] - alvos[v]) / sr
+    melhor = np.full((n - 1, m), -1e9)
+    veio = np.zeros((n - 1, m), dtype=int)
+    for q in range(m):
+        melhor[0, q] = nota(0, q)
+    for v in range(1, n - 1):
+        acum, arg = -1e9, -1
+        for q in range(m):
+            if q > 0 and melhor[v - 1, q - 1] > acum:
+                acum, arg = melhor[v - 1, q - 1], q - 1
+            if arg >= 0:
+                melhor[v, q] = acum + nota(v, q)
+                veio[v, q] = arg
+    q = int(np.argmax(melhor[n - 2]))
+    cortes = []
+    for v in range(n - 2, -1, -1):
+        cortes.append(pausas[q][0]); q = veio[v, q]
+    cortes.reverse()
     limites = [0] + cortes + [len(som)]
     return [som[a:b] for a, b in zip(limites, limites[1:])]
 
@@ -76,7 +103,7 @@ def faixa(ep_id, linhas, inicio, slot, sr, total, usar=None):
         dados = _tts("\n".join(linhas))
         open(cache, "wb").write(dados)
     som = _ler(cache, sr)
-    partes = _segmentos(som, sr, len(linhas))
+    partes = _segmentos(som, sr, linhas)
     if partes is None:
         raise RuntimeError("narração não pôde ser dividida em versos")
     buf = np.zeros(int(total * sr))
