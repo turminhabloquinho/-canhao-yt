@@ -10,6 +10,7 @@ Voz opcional: coloque voz/ep01.wav (gravada no ritmo de 100 BPM) e ela é mixada
 """
 import json, math, os, re, subprocess, sys, wave
 import numpy as np
+import voz
 from PIL import Image, ImageDraw, ImageFont
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
@@ -233,9 +234,16 @@ def render(ep, vertical=False, limite=None):
     os.makedirs(os.path.join(RAIZ, "saida"), exist_ok=True)
     base = os.path.join(RAIZ, "saida", f"ep{ep['id']:02d}{sufixo}")
     audio, dur = musica(len(linhas), seed=ep["id"])
-    voz = os.path.join(RAIZ, "voz", f"ep{ep['id']:02d}.wav")
-    if os.path.exists(voz) and not vertical:
-        audio = mixar_voz(audio, voz)
+    gravada = os.path.join(RAIZ, "voz", f"ep{ep['id']:02d}.wav")
+    if os.path.exists(gravada) and not vertical:
+        audio = mixar_voz(audio, gravada)
+    elif voz.disponivel():
+        try:
+            completas = [l.strip() for l in ep["letra"].splitlines() if l.strip()]
+            fala = voz.faixa(ep["id"], completas, INTRO_BEATS * BEAT, LINHA_BEATS * BEAT, SR, dur, len(linhas))
+            audio = audio / (np.max(np.abs(audio)) + 1e-9) * 0.35 + fala[: len(audio)] * 0.95
+        except Exception as e:  # sem voz o vídeo sai só com música; a publicação nunca para por isso
+            print("aviso: voz indisponível agora:", str(e)[:120])
     salvar_wav(base + ".wav", audio)
     titulo = re.sub(r"[^\w\sÀ-ú,!?.-]", "", ep["titulo"].split("|")[0]).strip()
     rng = np.random.default_rng(ep["id"])

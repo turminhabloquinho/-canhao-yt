@@ -3,3 +3,4 @@ token.json
 saida/
 __pycache__/
 .auth_estado.json
+gemini_key.txt
