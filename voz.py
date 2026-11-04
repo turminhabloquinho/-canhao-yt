@@ -107,6 +107,7 @@ def faixa(ep_id, linhas, inicio, slot, sr, total, usar=None):
     if partes is None:
         raise RuntimeError("narração não pôde ser dividida em versos")
     buf = np.zeros(int(total * sr))
+    tempos = []  # quanto dura a fala de cada verso: a letra na tela acende nesse ritmo
     cabe = slot - 0.3
     for i, parte in enumerate(partes[:usar]):
         dur = len(parte) / sr
@@ -116,4 +117,5 @@ def faixa(ep_id, linhas, inicio, slot, sr, total, usar=None):
             parte = np.interp(idx, np.arange(len(parte)), parte)[: int(cabe * sr)]
         a = int((inicio + i * slot + 0.15) * sr)
         buf[a: a + len(parte)] += parte[: max(0, len(buf) - a)]
-    return buf
+        tempos.append(0.15 + len(parte) / sr)
+    return buf, tempos

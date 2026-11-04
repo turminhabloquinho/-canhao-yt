@@ -216,6 +216,23 @@ def objetos(linha):
     return [o for _, o in sorted(achados)][:3]
 
 
+def objetos_no_tempo(linha):
+    """Objetos do verso com o índice da palavra que os cita: cada um aparece quando sua palavra é falada."""
+    l = linha.lower()
+    achados = []
+    for padrao, obj in OBJETOS:
+        m = re.search(r"\b(?:" + padrao + ")", l)
+        if m and obj not in [o for _, o in achados]:
+            achados.append((m.start(), obj))
+    nums, vistos = [], set()
+    for m in re.finditer(r"\b(" + "|".join(NUMEROS) + r")\b", l):
+        if m.group(1) not in vistos:
+            vistos.add(m.group(1)); nums.append((m.start(), NUMEROS[m.group(1)]))
+    if len(nums) >= 2 or (nums and nums[0][0] == 0 and l.split()[0] != "um"):
+        achados += nums
+    return [(len(l[:pos].split()), obj) for pos, obj in sorted(achados)][:4]
+
+
 def emoji(car, px):
     chave = (car, px)
     if chave not in _cache_emoji:
@@ -244,7 +261,7 @@ def desenhar_objeto(img, obj, cx, cy, px, cor):
         img.paste(e, (int(cx - px / 2), int(cy - px / 2)), e)
 
 
-def quadro(W, H, t, linhas, dur, titulo, nuvens):
+def quadro(W, H, t, linhas, dur, titulo, nuvens, tempos=None):
     img = Image.new("RGB", (W, H))
     d = ImageDraw.Draw(img)
     for y in range(0, H, 4):  # céu em degradê
@@ -275,22 +292,32 @@ def quadro(W, H, t, linhas, dur, titulo, nuvens):
         piscando = ((t + i * 0.7) % 3.3) < 0.12
         personagem(d, cx, chao + lado * 0.15, lado * (1.15 if i == ativo else 1.0), cor, pulo, piscando, i == ativo)
 
-    if em_letra:  # objetos do verso, na grama em frente à turma, pulando no ritmo
-        objs = objetos(linhas[i_linha])
-        px = int(s * (0.2 if W > H else 0.28))
+    if em_letra:  # cada objeto surge quando sua palavra é falada; o mais recente fica em destaque
+        no_verso = (t - ini) % (LINHA_BEATS * BEAT)
+        fala = (tempos[i_linha] if tempos else LINHA_BEATS * BEAT * 0.85)
+        palavras = len(linhas[i_linha].split())
+        ditas = palavras * min(1.0, no_verso / max(0.5, fala))
+        objs = objetos_no_tempo(linhas[i_linha])
+        px = int(s * (0.2 if W > H else 0.26))
         base_y = chao + (H - chao) * (0.5 if W > H else 0.35)
-        for k, obj in enumerate(objs):
+        visiveis = [k for k, (w, _) in enumerate(objs) if w <= ditas]
+        for k, (w, obj) in enumerate(objs):
+            if k not in visiveis:
+                continue
             cx = W * (k + 1) / (len(objs) + 1)
-            entrada = min(1.0, ((t - ini) % (LINHA_BEATS * BEAT)) / 0.25)  # surge rápido no início do verso
-            pulo = abs(math.sin(math.pi * ((b + k * 0.33) % 1))) * px * 0.12
-            desenhar_objeto(img, obj, cx, base_y - pulo, max(8, int(px * entrada)), PERSONAGENS[ativo][1])
+            atual = k == visiveis[-1]
+            pop = min(1.0, (ditas - w + 0.3) / 0.6)  # "pula" para dentro da tela ao ser falado
+            escala = (1.35 if atual else 0.85) * (0.4 + 0.6 * pop)
+            pulo = abs(math.sin(math.pi * ((b + k * 0.33) % 1))) * px * (0.18 if atual else 0.06)
+            desenhar_objeto(img, obj, cx, base_y - pulo - (px * 0.15 if atual else 0), max(8, int(px * escala)),
+                            PERSONAGENS[ativo][1])
         d = ImageDraw.Draw(img)
 
     # texto: título na intro, letra karaokê no meio, chamada no final
     caixa_y = H * (0.05 if W > H else 0.1)
     if em_letra:
         texto = linhas[i_linha]
-        prog = ((t - ini) % (LINHA_BEATS * BEAT)) / (LINHA_BEATS * BEAT * 0.85)
+        prog = ((t - ini) % (LINHA_BEATS * BEAT)) / (tempos[i_linha] if tempos else LINHA_BEATS * BEAT * 0.85)
     elif t < ini:
         texto, prog = titulo, 1.0
     else:
@@ -325,13 +352,14 @@ def render(ep, vertical=False, limite=None):
     os.makedirs(os.path.join(RAIZ, "saida"), exist_ok=True)
     base = os.path.join(RAIZ, "saida", f"ep{ep['id']:02d}{sufixo}")
     audio, dur = musica(len(linhas), seed=ep["id"])
+    tempos = None
     gravada = os.path.join(RAIZ, "voz", f"ep{ep['id']:02d}.wav")
     if os.path.exists(gravada) and not vertical:
         audio = mixar_voz(audio, gravada)
     elif voz.disponivel():
         try:
             completas = [l.strip() for l in ep["letra"].splitlines() if l.strip()]
-            fala = voz.faixa(ep["id"], completas, INTRO_BEATS * BEAT, LINHA_BEATS * BEAT, SR, dur, len(linhas))
+            fala, tempos = voz.faixa(ep["id"], completas, INTRO_BEATS * BEAT, LINHA_BEATS * BEAT, SR, dur, len(linhas))
             audio = audio / (np.max(np.abs(audio)) + 1e-9) * 0.35 + fala[: len(audio)] * 0.95
         except Exception as e:  # sem voz o vídeo sai só com música; a publicação nunca para por isso
             print("aviso: voz indisponível agora:", str(e)[:120])
@@ -344,7 +372,7 @@ def render(ep, vertical=False, limite=None):
            "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", base + ".mp4"]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for f in range(int(dur * FPS)):
-        proc.stdin.write(quadro(W, H, f / FPS, linhas, dur, titulo, nuvens).tobytes())
+        proc.stdin.write(quadro(W, H, f / FPS, linhas, dur, titulo, nuvens, tempos).tobytes())
     proc.stdin.close(); proc.wait()
     os.remove(base + ".wav")
     if not vertical:
