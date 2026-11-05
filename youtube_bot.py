@@ -182,7 +182,8 @@ def localizar(yt, vid, ep_id, tipo="longo"):
     sn.setdefault("defaultLanguage", "pt-BR")
     yt.videos().update(part="snippet,localizations", body={"id": vid, "snippet": {
         "title": sn["title"], "description": sn["description"], "categoryId": sn["categoryId"],
-        "tags": sn.get("tags", []), "defaultLanguage": sn["defaultLanguage"]}, "localizations": loc}).execute()
+        "tags": sn.get("tags", []), "defaultLanguage": sn["defaultLanguage"],
+        "defaultAudioLanguage": "pt-BR"}, "localizations": loc}).execute()  # sem isto o YouTube troca o áudio para inglês
 
 
 def publicar(qtd=1):
