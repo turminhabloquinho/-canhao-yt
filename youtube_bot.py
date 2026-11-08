@@ -204,7 +204,8 @@ def publicar(qtd=1):
                 motor.compilar(ep, cal, 60 if "ninar" in ep["tema"] else 30)
             else:
                 motor.render(ep)
-                motor.render(ep, vertical=True, limite=6)
+        if "compila" not in ep["tema"] and not os.path.exists(base + "_short.mp4"):
+            motor.render(ep, vertical=True, limite=6)  # o Short pode faltar mesmo com o vídeo já pronto
         if "compila" in ep["tema"]:
             vid = enviar(yt, base + ".mp4", ep["titulo"], descricao(ep), ep["tags"], base + ".jpg")
         else:
