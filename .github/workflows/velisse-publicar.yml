@@ -1,0 +1,52 @@
+name: Velisse - publicar Short
+
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        description: "Número N da linha na aba 'Fila de Videos'"
+        required: true
+      video_url:
+        description: "Link do mp4 (vazio = usa velisse/fila/N.mp4)"
+        required: false
+      quando:
+        description: "Horário UTC opcional (ex.: 2026-11-10T01:00:00Z). Vazio = data da fila"
+        required: false
+  push:
+    branches: [main]
+    paths: ["velisse/fila/*.mp4"]
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-api-python-client google-auth google-auth-oauthlib
+      - name: Publicar
+        env:
+          VELISSE_GOOGLE_TOKEN: ${{ secrets.VELISSE_GOOGLE_TOKEN }}
+          N: ${{ github.event.inputs.n }}
+          URL: ${{ github.event.inputs.video_url }}
+          QUANDO: ${{ github.event.inputs.quando }}
+        run: |
+          set -e
+          if [ -n "$N" ]; then
+            python velisse/velisse_bot.py publicar "$N" ${URL:+--url "$URL"} ${QUANDO:+--quando "$QUANDO"}
+          else
+            for f in velisse/fila/*.mp4; do
+              [ -e "$f" ] || continue
+              python velisse/velisse_bot.py publicar "$(basename "$f" .mp4)"
+            done
+          fi
+      - name: Limpar vídeos já enviados
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "velisse-bot"
+          git config user.email "velisse-bot@users.noreply.github.com"
+          git add -A velisse/fila
+          git diff --cached --quiet || (git commit -m "velisse: remove vídeos já agendados" && git push)

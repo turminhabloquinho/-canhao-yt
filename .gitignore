@@ -4,3 +4,5 @@ saida/
 __pycache__/
 .auth_estado.json
 gemini_key.txt
+velisse/token.json
+velisse/client_secret.json
