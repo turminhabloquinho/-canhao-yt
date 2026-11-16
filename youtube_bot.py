@@ -218,12 +218,20 @@ def publicar(qtd=1):
         if ep["playlist"] in lista_pl:
             yt.playlistItems().insert(part="snippet", body={"snippet": {
                 "playlistId": lista_pl[ep["playlist"]], "resourceId": {"kind": "youtube#video", "videoId": vid}}}).execute()
-        localizar(yt, vid, ep["id"], "simples" if "compila" in ep["tema"] else "longo")
         registro = {"video": vid}
+        pub[chave] = registro
+        json.dump(pub, open(PUBLICADOS, "w"), indent=2)  # grava já: o vídeo está no ar mesmo que algo abaixo falhe
+        try:
+            localizar(yt, vid, ep["id"], "simples" if "compila" in ep["tema"] else "longo")
+        except Exception as e:
+            print("aviso: traducoes nao aplicadas:", e)
         if os.path.exists(base + "_short.mp4"):
             titulo_s = ep["titulo"].split("|")[0].strip() + " #shorts"
-            registro["short"] = enviar(yt, base + "_short.mp4", titulo_s, descricao(ep, True), ep["tags"])
-            localizar(yt, registro["short"], ep["id"], "short")
+            try:
+                registro["short"] = enviar(yt, base + "_short.mp4", titulo_s, descricao(ep, True), ep["tags"])
+                localizar(yt, registro["short"], ep["id"], "short")
+            except Exception as e:
+                print("aviso: short/traducao falhou:", e)
         pub[chave] = registro
         json.dump(pub, open(PUBLICADOS, "w"), indent=2)
         feitos += 1
