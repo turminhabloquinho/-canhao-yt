@@ -17,13 +17,15 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Segredos para arquivos
         env:
-          CLIENT_SECRET_JSON: ${{ secrets.CLIENT_SECRET_JSON }}
-          TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
-          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          BOT_SEGREDOS: ${{ secrets.BOT_SEGREDOS }}
         run: |
-          printf '%s' "$CLIENT_SECRET_JSON" > client_secret.json
-          printf '%s' "$TOKEN_JSON" > token.json
-          printf '%s' "$GEMINI_KEY" > gemini_key.txt
+          python - <<'PY'
+          import json, os
+          d = json.loads(os.environ["BOT_SEGREDOS"])
+          json.dump(d["client_secret"], open("client_secret.json", "w"))
+          json.dump(d["token"], open("token.json", "w"))
+          open("gemini_key.txt", "w").write(d["gemini_key"])
+          PY
       - name: Publicar o proximo episodio
         run: python youtube_bot.py publicar 1
       - name: Guardar o que ja foi publicado
