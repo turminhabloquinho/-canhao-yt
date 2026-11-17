@@ -29,8 +29,9 @@ jobs:
       - name: Publicar o proximo episodio
         run: python youtube_bot.py publicar 1
       - name: Guardar o que ja foi publicado
+        if: always()
         run: |
           git config user.name "robo-bloquinho"
           git config user.email "robo@users.noreply.github.com"
-          git add conteudo/publicados.json
+          git add conteudo/publicados.json voz
           git diff --cached --quiet || (git commit -m "Episodio publicado" && git push)

@@ -5,7 +5,7 @@
   python youtube_bot.py publicar 1    # publica o próximo episódio pendente (+ o Short dele)
   python youtube_bot.py status
 """
-import datetime, json, os, random, subprocess, sys
+import time, datetime, json, os, random, subprocess, sys
 import motor
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -110,9 +110,21 @@ def enviar(yt, caminho, titulo, desc, tags, miniatura=None):
     }
     req = yt.videos().insert(part="snippet,status", body=corpo,
                              media_body=MediaFileUpload(caminho, chunksize=8 * 1024 * 1024, resumable=True))
-    resp = None
+    resp, falhas = None, 0
     while resp is None:
-        _, resp = req.next_chunk()
+        try:
+            _, resp = req.next_chunk()
+        except (BrokenPipeError, ConnectionError, TimeoutError, OSError) as e:  # a conexão cai em envios longos: retoma
+            falhas += 1
+            if falhas > 10:
+                raise
+            print(f"aviso: envio interrompido ({e}); retomando {falhas}/10")
+            time.sleep(10 * falhas)
+        except HttpError as e:
+            falhas += 1
+            if e.resp.status < 500 or falhas > 10:
+                raise
+            time.sleep(10 * falhas)
     vid = resp["id"]
     if miniatura and os.path.exists(miniatura):
         try:
@@ -137,6 +149,8 @@ def montar_longo(ep, cal, pub):
         f = os.path.join(RAIZ, "saida", f"ep{e['id']:02d}.mp4")
         if not os.path.exists(f):
             motor.render(e)
+        if e["id"] != ep["id"] and os.path.exists(f[:-4] + ".semvoz"):
+            continue  # nunca coloca no vídeo uma música antiga sem voz
         if i < 2 + len(anteriores):
             cap.append((total, nome(e) + (" (de novo!)" if i == 1 else "")))
         ordem.append(f); total += duracao(f)

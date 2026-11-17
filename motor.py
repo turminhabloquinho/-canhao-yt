@@ -353,6 +353,9 @@ def render(ep, vertical=False, limite=None):
     base = os.path.join(RAIZ, "saida", f"ep{ep['id']:02d}{sufixo}")
     audio, dur = musica(len(linhas), seed=ep["id"])
     tempos = None
+    semvoz = base + ".semvoz"
+    if os.path.exists(semvoz):
+        os.remove(semvoz)
     gravada = os.path.join(RAIZ, "voz", f"ep{ep['id']:02d}.wav")
     if os.path.exists(gravada) and not vertical:
         audio = mixar_voz(audio, gravada)
@@ -363,6 +366,7 @@ def render(ep, vertical=False, limite=None):
             audio = audio / (np.max(np.abs(audio)) + 1e-9) * 0.35 + fala[: len(audio)] * 0.95
         except Exception as e:  # sem voz o vídeo sai só com música; a publicação nunca para por isso
             print("aviso: voz indisponível agora:", str(e)[:120])
+            open(semvoz, "w").write("1")
     salvar_wav(base + ".wav", audio)
     titulo = re.sub(r"[^\w\sÀ-ú,!?.-]", "", ep["titulo"].split("|")[0]).strip()
     rng = np.random.default_rng(ep["id"])

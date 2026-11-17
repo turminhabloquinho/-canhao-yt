@@ -26,13 +26,13 @@ def _tts(texto):
         f"https://generativelanguage.googleapis.com/v1beta/models/{MODELO}:generateContent",
         data=json.dumps(body).encode(),
         headers={"x-goog-api-key": open(CHAVE).read().strip(), "Content-Type": "application/json"})
-    for tentativa in range(6):
+    for tentativa in range(3):
         try:
             parte = json.load(urllib.request.urlopen(req, timeout=120))["candidates"][0]["content"]["parts"][0]
             return base64.b64decode(parte["inlineData"]["data"])
         except urllib.error.HTTPError as e:
-            if e.code in (429, 500, 503) and tentativa < 5:
-                time.sleep(30 * (tentativa + 1))  # limite por minuto do plano gratuito
+            if e.code in (429, 500, 503) and tentativa < 2:
+                time.sleep(25 * (tentativa + 1))  # limite por minuto do plano gratuito
                 continue
             raise
 
